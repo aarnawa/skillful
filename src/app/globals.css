@@ -1,0 +1,209 @@
+@import "tailwindcss";
+
+@theme {
+  --color-gold: #D4AF37;
+  --color-gold-light: #E8C84A;
+  --color-gold-dark: #A88A2B;
+  --color-accent-red: #C0392B;
+  --color-accent-red-light: #E74C3C;
+  --color-bg-primary: var(--theme-bg-primary);
+  --color-bg-secondary: var(--theme-bg-secondary);
+  --color-bg-card: var(--theme-bg-card);
+  --color-bg-hover: var(--theme-bg-hover);
+  --color-text-primary: var(--theme-text-primary);
+  --color-text-secondary: var(--theme-text-secondary);
+  --color-text-muted: var(--theme-text-muted);
+  --color-border: var(--theme-border);
+  --color-border-light: var(--theme-border-light);
+}
+
+:root {
+  --theme-bg-primary: #F8F9FA;
+  --theme-bg-secondary: #F1F3F5;
+  --theme-bg-card: #FFFFFF;
+  --theme-bg-hover: #E9ECEF;
+  --theme-text-primary: #111827;
+  --theme-text-secondary: #4B5563;
+  --theme-text-muted: #9CA3AF;
+  --theme-border: #E5E7EB;
+  --theme-border-light: #D1D5DB;
+}
+
+.dark {
+  --theme-bg-primary: #0A0A0A;
+  --theme-bg-secondary: #111111;
+  --theme-bg-card: #1A1A1A;
+  --theme-bg-hover: #222222;
+  --theme-text-primary: #FFFFFF;
+  --theme-text-secondary: #A0A0A0;
+  --theme-text-muted: #666666;
+  --theme-border: #2A2A2A;
+  --theme-border-light: #333333;
+
+  --color-cat-handling: #E8B830;
+  --color-cat-shooting: #C0392B;
+  --color-cat-passing: #2980B9;
+  --color-cat-defense: #27AE60;
+  --color-cat-footwork: #8E44AD;
+  --color-cat-iq: #F39C12;
+
+  --font-heading: "Outfit", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+/* ─── Base Reset ───────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Hexagon clip path ────────────────────────── */
+.hex-clip {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+/* ─── Hexagon border (using SVG background) ───── */
+.hex-border {
+  position: relative;
+}
+
+.hex-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  z-index: -1;
+}
+
+/* ─── Animations ───────────────────────────────── */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+  }
+}
+
+@keyframes hex-hover {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* ─── Progress bar ─────────────────────────────── */
+.progress-fill {
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Scrollbar ────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-light);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold-dark);
+}
+
+/* ─── Utility: stagger children animation ──────── */
+.stagger-children>* {
+  opacity: 0;
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.stagger-children>*:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.stagger-children>*:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.stagger-children>*:nth-child(3) {
+  animation-delay: 0.15s;
+}
+
+.stagger-children>*:nth-child(4) {
+  animation-delay: 0.2s;
+}
+
+.stagger-children>*:nth-child(5) {
+  animation-delay: 0.25s;
+}
+
+.stagger-children>*:nth-child(6) {
+  animation-delay: 0.3s;
+}
+
+.stagger-children>*:nth-child(7) {
+  animation-delay: 0.35s;
+}
+
+.stagger-children>*:nth-child(8) {
+  animation-delay: 0.4s;
+}
