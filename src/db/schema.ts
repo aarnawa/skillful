@@ -1,30 +1,28 @@
-import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
+import { pgTable, text, integer, serial, timestamp, varchar } from "drizzle-orm/pg-core";
 
 // ─── Users ───────────────────────────────────────────────
-export const users = sqliteTable("users", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
-  name: text("name").notNull(),
-  email: text("email").notNull().unique(),
-  createdAt: text("created_at")
-    .notNull()
-    .$defaultFn(() => new Date().toISOString()),
+export const users = pgTable("users", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull().unique(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 // ─── Skills (self-referential tree) ──────────────────────
-export const skills = sqliteTable("skills", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
-  name: text("name").notNull(),
+export const skills = pgTable("skills", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
   description: text("description").notNull().default(""),
-  icon: text("icon").notNull().default("⭐"),
-  color: text("color").notNull().default("#D4AF37"), // gold default
+  icon: varchar("icon", { length: 50 }).notNull().default("⭐"),
+  color: varchar("color", { length: 20 }).notNull().default("#D4AF37"), // gold default
   parentId: integer("parent_id"),                     // null = root skill
   level: integer("level").notNull().default(0),       // depth in tree (0 = root)
   order: integer("order").notNull().default(0),       // display order among siblings
 });
 
 // ─── User Progress per Skill ─────────────────────────────
-export const userProgress = sqliteTable("user_progress", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
+export const userProgress = pgTable("user_progress", {
+  id: serial("id").primaryKey(),
   userId: integer("user_id")
     .notNull()
     .references(() => users.id),
@@ -33,9 +31,7 @@ export const userProgress = sqliteTable("user_progress", {
     .references(() => skills.id),
   currentLevel: integer("current_level").notNull().default(0), // 0–100
   xp: integer("xp").notNull().default(0),
-  updatedAt: text("updated_at")
-    .notNull()
-    .$defaultFn(() => new Date().toISOString()),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
 // ─── Type exports ────────────────────────────────────────

@@ -61,7 +61,7 @@ export async function addProgress(skillId: number, xpGain: number = 25) {
         .set({
             xp: newXp,
             currentLevel: newLevel,
-            updatedAt: new Date().toISOString(),
+            updatedAt: new Date(),
         })
         .where(eq(userProgress.id, current.id))
         .returning();
@@ -95,7 +95,7 @@ export async function resetProgress(skillId: number, newLevel: number) {
         .set({
             currentLevel: newLevel,
             xp: 0,
-            updatedAt: new Date().toISOString(),
+            updatedAt: new Date(),
         })
         .where(eq(userProgress.id, current.id))
         .returning();
