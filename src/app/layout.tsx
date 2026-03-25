@@ -51,7 +51,15 @@ export default function RootLayout({
                   <span className="text-gold">Skill</span>ful
                 </h1>
               </a>
+
               <div className="flex items-center gap-4">
+                <a
+                  href="/login"
+                  className="flex h-9 w-25 items-center justify-center rounded-lg bg-bg-card text-text-secondary transition-colors hover:bg-bg-hover hover:text-text-primary"
+                  aria-label="Login"
+                >
+                  Login
+                </a>
                 <ThemeToggle />
                 <div className="hidden items-center gap-2 rounded-full bg-bg-card px-4 py-2 sm:flex">
                   <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />

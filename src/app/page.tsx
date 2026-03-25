@@ -20,6 +20,8 @@ type ProgressMap = Record<number, { currentLevel: number; xp: number }>;
  * Currently just Basketball, but designed for easy expansion.
  */
 export default function HomePage() {
+  console.log("loading data")
+
   const router = useRouter();
   const [roots, setRoots] = useState<SkillTreeNode[]>([]);
   const [progress, setProgress] = useState<ProgressMap>({});
