@@ -16,3 +16,18 @@ export async function getUserNamebyId(userId: number): Promise<string> {
 
     return user?.name || "Unknown User";
 }
+
+/**
+ * Fetches the name of a specific user from the database by their email.
+ * 
+ * @param email - The unique email address of the user.
+ * @returns A promise that resolves to the user's name or "Unknown User" if not found.
+ */
+export async function getUserNamebyEmail(email: string): Promise<string> {
+    // Query the 'users' table using the Relational API with an email filter
+    const user = await db.query.users.findFirst({
+        where: eq(users.email, email),
+    });
+
+    return user?.name || "Unknown User";
+}

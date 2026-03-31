@@ -20,6 +20,13 @@ export default function LoginPage() {
         // Simulate a brief delay for the animation/UX
         setTimeout(() => {
             setIsSubmitting(false);
+            try {
+                fetch(`api/user?email=${email}`)
+                    .then(res => res.json())
+                    .then(data => console.log("User found:", data.name))
+            } catch (error) {
+                console.error("Fetch error:", error);
+            }
             router.push("/");
         }, 1500);
     };
